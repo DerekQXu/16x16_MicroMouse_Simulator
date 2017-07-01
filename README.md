@@ -5,7 +5,7 @@ sample floodfill AI that can be used by the mouse to navigate through
 the maze. The user can choose multiple iterations to view improvements
 in the mouses maze solving abilities.
 
-##Usage
+## Usage
 
 Simply run the main.cpp file. To modify the AI, change the Sample_AI.cpp
 file.
