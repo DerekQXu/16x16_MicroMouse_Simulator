@@ -1,12 +1,13 @@
 #ifndef CELL_H
 #define CELL_H
+#include "Wall.h"
 
 class Cell
 {
 public:
-	Cell();
-	void setWall(Wall* wall, Direction ID);
-	Wall* getWall(Direction ID);
+    Cell();
+    void setWall(Wall* wall, Direction ID);
+    Wall* getWall(Direction ID);
     void setCell(Cell* cell, Direction ID);
     Cell* getCell(Direction ID);
 
