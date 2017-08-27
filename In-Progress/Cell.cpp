@@ -8,11 +8,6 @@ Cell::Cell()
     Wall* m_rightWall = NULL;
     Wall* m_upWall = NULL;
     Wall* m_downWall = NULL;
-
-    Cell* m_leftCell = NULL;
-    Cell* m_rightCell = NULL;
-    Cell* m_upCell = NULL;
-    Cell* m_downCell = NULL;
 }
 
 //links a wall to the cell
@@ -31,61 +26,30 @@ void Cell::setWall(Wall* wall, Direction ID)
     case DOWN:
         m_downWall = wall;
         break;
-    return;
 }
+    return;
 };
 
 //returns a pointer to linked wall or NULL in the direction of ID
-Wall getWall(Direction ID)
+bool getWall(Direction ID)
 {
     switch(ID)
 {
     case LEFT:
-        return m_leftWall;
-    case RIGHT:
-        return m_rightWall;
-    case UP:
-        return m_upWall;
-    case DOWN:
-        return m_downWall;
-    return NULL;
-}
-}
-
-//links another cell to the cell
-void Cell::setWall(Wall* cell, Direction ID)
-    switch(ID)
-{
-    case LEFT:
-        m_leftCell = cell;
+        if (m_leftWall == NULL)
+            return false;
         break;
     case RIGHT:
-        m_rightCell = cell;
+        if (m_rightWall == NULL)
+            return false;
         break;
     case UP:
-        m_upCell = cell;
+        if (m_upWall == NULL)
+            return false;
         break;
     case DOWN:
-        m_downCell = cell;
-        break;
-    return;
+        if (m_downWall == NULL)
+            return false;
 }
-};
-
-
-//returns a pointer to linked cell or NULL in the direction of ID
-Wall getCell(Direction ID)
-{
-    switch(ID)
-{
-    case LEFT:
-        return m_leftCell;
-    case RIGHT:
-        return m_rightCell;
-    case UP:
-        return m_upCell;
-    case DOWN:
-        return m_downCell;
-    return NULL;
-}
+    return true;
 }
