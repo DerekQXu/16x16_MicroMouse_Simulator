@@ -1,7 +1,7 @@
-#ifndef CELL_H
-#define CELL_H
+#ifndef WALL_H
+#define WALL_H
 
-class Cell
+class Wall
 {
 public:
     Wall();
@@ -11,4 +11,4 @@ private:
     bool m_isWall;
 };
 
-#endif // CELL_H
+#endif // WALL_H
