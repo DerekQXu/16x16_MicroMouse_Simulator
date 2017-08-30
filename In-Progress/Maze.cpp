@@ -12,22 +12,30 @@
 
 Maze::Maze(){}
 
+Maze::~Maze()
+{
+    for(std::list<Cell*>::itr = m_wallList.begin(); itr != m_wallList.end(); ++itr){
+        Wall* child = *itr;
+        delete child;
+    }
+    m_wallList.clear();
+}
 void Maze::setCellWall(int i, int j, Direction ID){
     //push wall onto a list of all walls
     Wall tempWall = new Wall();
-    m_wallList.push_back(tempWall);
+    m_wallList.push_back(&tempWall);
 
     //add wall to Cell in question
-    m_maze[i][j].setWall(tempWall, ID);
+    m_maze[i][j].setWall(&tempWall, ID);
     //add wall to adjacent Cells that share the same wall
     switch (ID){
         case UP:
             if (j != ROW_NUMBER-1)
-                m_maze[i][j+1].setWall(tempWall, Direction::DOWN);
+                m_maze[i][j+1].setWall(&tempWall, Direction::DOWN);
             break;
         case RIGHT:
             if (i != COLUMN_NUMBER-1)
-                m_maze[i+1][j].setWall(tempWall, Direction::LEFT);
+                m_maze[i+1][j].setWall(&tempWall, Direction::LEFT);
         return;
     }
 }
@@ -79,9 +87,9 @@ void Maze::setMaze()
     mazeFile.close();
 }
 
-Cell Maze::getCell(int i, int j)
+Cell* Maze::getCell(int i, int j)
 {
-    return m_maze[i][j];
+    return &(m_maze[i][j]);
 }
 
 void Maze::printMaze(int x, int y)
