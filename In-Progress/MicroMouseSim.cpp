@@ -1,17 +1,12 @@
 #include "Maze.h"
 #include "Cell.h"
-#include "Sample_AI.h"
 #include "Common.h"
+#include "MicroMouseSim.cpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <windows.h>
 #include <string>
-
-using namespace std;
-
-void ShowConsoleCursor(bool showFlag);
-bool isEnd(int xLocation, int yLocation);
 
 MicroMouseSim::MicroMouseSim()
 {
@@ -135,4 +130,15 @@ bool MicroMouseSim::displayMaze()
         return true;
     }
     return false;
+}
+
+void ShowConsoleCursor(bool showFlag)
+{
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	CONSOLE_CURSOR_INFO cursorInfo;
+
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = showFlag; // set the cursor visibility
+	SetConsoleCursorInfo(out, &cursorInfo);
 }
