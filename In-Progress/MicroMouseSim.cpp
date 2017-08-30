@@ -16,7 +16,6 @@ MicroMouseSim::MicroMouseSim()
     maze.setMaze();
     int m_mouseX = 0;
     int m_mouseY = 0;
-    int m_maxTrainCount;
     int m_moves = 0;
     int m_trainCount = 0;
     bool can_move = true;
@@ -98,7 +97,7 @@ bool MicroMouseSim::displayMaze()
         return true;
 
     //moves mouse
-    ShowConsoleCursor(false);
+    showConsoleCursor(false);
     COORD coord;
     coord.X = 0;
     coord.Y = 0;
@@ -117,7 +116,7 @@ bool MicroMouseSim::displayMaze()
     {
         //print out an ending screen
         system("cls");
-        ShowConsoleCursor(true);
+        showConsoleCursor(true);
         std::cout << "Total Move Number: " << m_moves << "moves"
             << "\nNumbers of Attempts: " << m_trainCount << " out of " << m_maxTrainCount
             << "\npress any key to continue" << std::endl;
@@ -132,7 +131,7 @@ bool MicroMouseSim::displayMaze()
     return false;
 }
 
-void ShowConsoleCursor(bool showFlag)
+void showConsoleCursor(bool showFlag)
 {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
