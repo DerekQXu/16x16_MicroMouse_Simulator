@@ -1,7 +1,7 @@
 #include "Maze.h"
 #include "Cell.h"
 #include "Common.h"
-#include "MicroMouseSim.cpp"
+#include "MicroMouseSim.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
