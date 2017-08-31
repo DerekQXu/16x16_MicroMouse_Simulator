@@ -10,7 +10,7 @@ class MicroMouseSim
         MicroMouseSim();
         displayMaze();
         moveMouse(Direction ID);
-        isWall(Direction ID);
+        checkWall(Direction ID);
     private:
         int m_mouseX;
         int m_mouseY;
@@ -18,8 +18,9 @@ class MicroMouseSim
         int m_moves;
         int m_trainCount;
         int m_maxTrainCount;
+        bool m_moveLock;
         ShowConsoleCursor(bool showFlag);
-        cannotMove(Direction ID);
+        canMove(Direction ID);
 }
 
 #endif // MICROMOUSESIM_H
