@@ -7,7 +7,10 @@
 #include <sstream>
 #include <windows.h>
 #include <string>
+#include <chrono>
+#include <thread>
 
+//sets up constants and maze; gets ready to print to console
 MicroMouseSim::MicroMouseSim()
 {
     std::cout.setf(std::ios::boolalpha);
@@ -18,7 +21,7 @@ MicroMouseSim::MicroMouseSim()
     int m_mouseY = 0;
     int m_moves = 0;
     int m_trainCount = 0;
-    bool can_move = true;
+    bool m_moveLock = false;
 
     std::cout << "Maze: " << std::endl;
     maze.printMaze(m_mouseX, m_mouseY);
@@ -26,70 +29,67 @@ MicroMouseSim::MicroMouseSim()
     std::cin >> m_maxTrainCount;
 }
 
-bool MicroMouseSim::isWall(Direction ID)
+//returns true if there is a wall in the direction indicated from (m_mouseX, m_mouseY) coordinate
+bool MicroMouseSim::checkWall(Direction ID)
 {
     return maze.getCell(m_mouseX, m_mouseY)->getWall(ID);
 }
 
-bool MircoMouseSim::cannotMove(Direction ID)
+//helper function to see if wall is blocking attempted move direction
+bool MircoMouseSim::canMove(Direction ID)
 {
     switch (ID)
     {
         case UP:
             if (maze.getCell(m_mouseX, m_mouseY)->getWall(Direction::UP))
-                return true;
+                return false;
             break;
         case DOWN:
             if (maze.getCell(m_mouseX, m_mouseY)->getWall(Direction::DOWN))
-                return true;
+                return false;
             break;
         case RIGHT:
             if (maze.getCell(m_mouseX, m_mouseY)->getWall(Direction::RIGHT))
-                return true;
+                return false;
             break;
         case LEFT:
             if (maze.getCell(m_mouseX, m_mouseY)->getWall(Direction::LEFT))
-                return true;
+                return false;
             break;
     }
-    return false;
+    return true;
 }
 
+//returns true if the mouse moved
 bool MicroMouseSim::moveMouse(Direction ID)
 {
-    bool hasMoved = true;
+    //exit function if mouse has already attempted move or had an invalid move
+    if (m_moveLock || !canMove(ID)){
+	    m_moveLock = true;
+	    return false;
+    }
+    //physically move the mouse
     switch (ID)
     {
         case UP:
-            if (m_mouseY >= ROW_NUMBER-1 || cannotMove(ID))
-                hasMoved = false;
-            else
-                ++m_mouseY;
+            ++m_mouseY;
             break;
         case DOWN:
-            if (m_mouseY <= 0 || cannotMove(ID))
-                hasMoved = false;
-            else
-                --m_mouseY;
+            --m_mouseY;
             break;
         case RIGHT:
-            if (m_mouseX >= COLUMN_NUMBER-1 || cannotMove(ID))
-                hasMoved = false;
-            else
-                ++m_mouseX;
+            ++m_mouseX;
             break;
         case LEFT:
-            if (m_mouseX <= 0 || cannotMove(ID))
-                hasMoved = false;
-            else
-                --m_mouseX;
+            --m_mouseX;
             break;
     }
     ++m_moves;
-    return hasMoved;
+    m_moveLock = true;
+    return true;
 }
 
-//returns true if mouse is at end
+//returns true if specified train count is over
 bool MicroMouseSim::displayMaze()
 {
     //after train count is over
@@ -106,21 +106,19 @@ bool MicroMouseSim::displayMaze()
     maze.printMaze(m_mouseX, m_mouseY);
     std::cout << "\nCurrent Location: (" << m_mouseX << ", " << m_mouseY ")\n"
         << "Current Move Number: " << m_moves << std::endl;
-    Sleep(50);
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
     //checks if mouse is at end
-    if (m_mouseX == COLUMN_NUMBER/2
-            && (m_mouseY == ROW_NUMBER/2 || m_mouseY == ROW_NUMBER/2+1)
-            || m_mouseX == COLUMN_NUMBER/2+1
-            && (m_mouseY == ROW_NUMBER/2 || m_mouseY == ROW_NUMBER/2+1))
+    if ((m_mouseX == COLUMN_NUMBER/2 && (m_mouseY == ROW_NUMBER/2 || m_mouseY == ROW_NUMBER/2+1))
+            || (m_mouseX == COLUMN_NUMBER/2+1 && (m_mouseY == ROW_NUMBER/2 || m_mouseY == ROW_NUMBER/2+1)))
     {
         //print out an ending screen
-        system("cls");
         showConsoleCursor(true);
-        std::cout << "Total Move Number: " << m_moves << "moves"
+        std::cout << "\nTotal Move Number: " << m_moves << "moves"
             << "\nNumbers of Attempts: " << m_trainCount << " out of " << m_maxTrainCount
             << "\npress any key to continue" << std::endl;
         system("pause");
+	
         //resets constants
         m_moves = 0;
         m_mouseX = 0;
@@ -128,13 +126,14 @@ bool MicroMouseSim::displayMaze()
         ++m_trainCount;
         return true;
     }
+    m_moveLock = false;
     return false;
 }
 
+//helper function to print on terminal
 void showConsoleCursor(bool showFlag)
 {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-
 	CONSOLE_CURSOR_INFO cursorInfo;
 
 	GetConsoleCursorInfo(out, &cursorInfo);
