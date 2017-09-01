@@ -2,7 +2,7 @@
 
 Wall::Wall()
 {
-    bool m_isWall = true;
+    m_isWall = true;
 }
 
 bool Wall::isWall(){

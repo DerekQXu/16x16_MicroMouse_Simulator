@@ -1,9 +1,9 @@
 #ifndef MAZE_H
 #define MAZE_H
 
+#include "Common.h"
 #include "Cell.h"
 #include "Wall.h"
-#include "Common.h"
 #include <list>
 
 class Maze
@@ -20,7 +20,7 @@ public:
 
 private:
 	Cell m_maze[COLUMN_NUMBER][ROW_NUMBER];
-    list<Wall*> m_wallList;
+    std::list<Wall*> m_wallList;
 };
 
 #endif // MAZE_H

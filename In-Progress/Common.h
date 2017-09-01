@@ -3,7 +3,7 @@
 #define ROW_NUMBER 16
 #define COLUMN_NUMBER 16
 
-enum
+enum Direction
 {
   UP = 1,
   DOWN = 2,

@@ -15,15 +15,13 @@ MicroMouseSim::MicroMouseSim()
 {
     std::cout.setf(std::ios::boolalpha);
 
-    Maze maze;
     maze.setMaze();
-    int m_mouseX = 0;
-    int m_mouseY = 0;
-    int m_moves = 0;
-    int m_trainCount = 0;
-    bool m_moveLock = false;
+    m_mouseX = 0;
+    m_mouseY = 0;
+    m_moves = 0;
+    m_trainCount = 0;
+    m_moveLock = false;
 
-    std::cout << "Maze: " << std::endl;
     maze.printMaze(m_mouseX, m_mouseY);
     std::cout << "How many times would you like to run the AI?" << std::endl;
     std::cin >> m_maxTrainCount;
@@ -36,7 +34,7 @@ bool MicroMouseSim::checkWall(Direction ID)
 }
 
 //helper function to see if wall is blocking attempted move direction
-bool MircoMouseSim::canMove(Direction ID)
+bool MicroMouseSim::canMove(Direction ID)
 {
     switch (ID)
     {
@@ -101,10 +99,11 @@ bool MicroMouseSim::displayMaze()
     COORD coord;
     coord.X = 0;
     coord.Y = 0;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
     //prints maze
     maze.printMaze(m_mouseX, m_mouseY);
-    std::cout << "\nCurrent Location: (" << m_mouseX << ", " << m_mouseY ")\n"
+    std::cout << "\nCurrent Location: (" << m_mouseX << ", " << m_mouseY << ")   \n"
         << "Current Move Number: " << m_moves << std::endl;
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
@@ -118,7 +117,7 @@ bool MicroMouseSim::displayMaze()
             << "\nNumbers of Attempts: " << m_trainCount << " out of " << m_maxTrainCount
             << "\npress any key to continue" << std::endl;
         system("pause");
-	
+
         //resets constants
         m_moves = 0;
         m_mouseX = 0;
@@ -131,7 +130,7 @@ bool MicroMouseSim::displayMaze()
 }
 
 //helper function to print on terminal
-void showConsoleCursor(bool showFlag)
+void MicroMouseSim::showConsoleCursor(bool showFlag)
 {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;

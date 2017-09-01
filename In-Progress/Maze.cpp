@@ -14,28 +14,29 @@ Maze::Maze(){}
 
 Maze::~Maze()
 {
-    for(std::list<Cell*>::itr = m_wallList.begin(); itr != m_wallList.end(); ++itr){
+    for(std::list<Wall*>::iterator itr = m_wallList.begin(); itr != m_wallList.end(); ++itr){
         Wall* child = *itr;
         delete child;
     }
     m_wallList.clear();
 }
+
 void Maze::setCellWall(int i, int j, Direction ID){
     //push wall onto a list of all walls
-    Wall tempWall = new Wall();
-    m_wallList.push_back(&tempWall);
+    Wall* tempWall = new Wall();
+    m_wallList.push_back(tempWall);
 
     //add wall to Cell in question
-    m_maze[i][j].setWall(&tempWall, ID);
+    m_maze[i][j].setWall(tempWall, ID);
     //add wall to adjacent Cells that share the same wall
     switch (ID){
         case UP:
             if (j != ROW_NUMBER-1)
-                m_maze[i][j+1].setWall(&tempWall, Direction::DOWN);
+                m_maze[i][j+1].setWall(tempWall, Direction::DOWN);
             break;
         case RIGHT:
             if (i != COLUMN_NUMBER-1)
-                m_maze[i+1][j].setWall(&tempWall, Direction::LEFT);
+                m_maze[i+1][j].setWall(tempWall, Direction::LEFT);
         return;
     }
 }
@@ -43,7 +44,7 @@ void Maze::setCellWall(int i, int j, Direction ID){
 void Maze::setMaze()
 {
     //opens maze file
-    ifstream mazeFile;
+    std::ifstream mazeFile;
     mazeFile.open("maze.txt");
 
     //fills up wallID_arr with wallID's from text document;
@@ -51,7 +52,7 @@ void Maze::setMaze()
     std::string wallID_arr[COLUMN_NUMBER][ROW_NUMBER];
     for (int j = ROW_NUMBER-1; getline(mazeFile, currentLine) && j >= 0; --j){
         //retrieve line data
-        stringstream ssin(currentLine);
+        std::stringstream ssin(currentLine);
         //input wallID into wallID_arr
         for (int i = 0; ssin.good() && i < COLUMN_NUMBER; ++i){
             ssin >> wallID_arr[i][j];
@@ -61,18 +62,18 @@ void Maze::setMaze()
     //add walls to each cell in maze
     std::string wallID;
     for (int j = 0; j < ROW_NUMBER; ++j){
-        for (int i = 0; i < COMLUMN_NUMBER; ++i){
-            wallID = wallID_arr(i,j);
-            if (ID == "_^" || ID == "L^" || ID == "=" || ID = "C") {
+        for (int i = 0; i < COLUMN_NUMBER; ++i){
+            wallID = wallID_arr[i][j];
+            if (wallID == "_^" || wallID == "L^" || wallID == "=" || wallID == "C") {
                 setCellWall(i, j, Direction::UP);
             }
-            else if (ID == "|>" || ID == "l>" || ID == "||" || ID == "U") {
-                setCellWallR(i, j, Direction::RIGHT);
+            else if (wallID == "|>" || wallID == "L>" || wallID == "||" || wallID == "U") {
+                setCellWall(i, j, Direction::RIGHT);
             }
             //TODO: concat this to the previous if statements
-            else if (ID == "Lv" || ID == "N" || ID == "J" || ID = "[]") {
-                setCellWallU(i, j, Direction::UP);
-                setCellWallR(i, j, Direction::RIGHT);
+            else if (wallID == "Lv" || wallID == "N" || wallID == "J" || wallID == "[]") {
+                setCellWall(i, j, Direction::UP);
+				setCellWall(i, j, Direction::RIGHT);
             }
             // if ID is '.' it means that there are no walls bordering the cell
         }
@@ -103,7 +104,7 @@ void Maze::printMaze(int x, int y)
             else
                 std::cout << "  ";
         }
-        cout << "+\n";
+        std::cout << "+\n";
         for (int i = 0; i < 16; ++i)
         {
             if (m_maze[i][j].getWall(Direction::LEFT))

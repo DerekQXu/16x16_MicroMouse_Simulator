@@ -1,5 +1,6 @@
 #ifndef CELL_H
 #define CELL_H
+#include "Common.h"
 #include "Wall.h"
 
 class Cell

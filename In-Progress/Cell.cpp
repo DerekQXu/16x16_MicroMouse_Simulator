@@ -1,17 +1,19 @@
 #include "Cell.h"
 #include "Wall.h"
 #include "Common.h"
+#include <cstddef>
 
 Cell::Cell()
 {
-    Wall* m_leftWall = NULL;
-    Wall* m_rightWall = NULL;
-    Wall* m_upWall = NULL;
-    Wall* m_downWall = NULL;
+    m_leftWall = (Wall*) nullptr;
+    m_rightWall = (Wall*) nullptr;
+    m_upWall = (Wall*) nullptr;
+    m_downWall = (Wall*) nullptr;
 }
 
 //links a wall to the cell
 void Cell::setWall(Wall* wall, Direction ID)
+{
     switch(ID)
 {
     case LEFT:
@@ -31,24 +33,24 @@ void Cell::setWall(Wall* wall, Direction ID)
 };
 
 //returns a pointer to linked wall or NULL in the direction of ID
-bool getWall(Direction ID)
+bool Cell::getWall(Direction ID)
 {
     switch(ID)
 {
     case LEFT:
-        if (m_leftWall == NULL)
+        if (m_leftWall == (Wall*) nullptr)
             return false;
         break;
     case RIGHT:
-        if (m_rightWall == NULL)
+        if (m_rightWall == (Wall*) nullptr)
             return false;
         break;
     case UP:
-        if (m_upWall == NULL)
+        if (m_upWall == (Wall*) nullptr)
             return false;
         break;
     case DOWN:
-        if (m_downWall == NULL)
+        if (m_downWall == (Wall*) nullptr)
             return false;
 }
     return true;
