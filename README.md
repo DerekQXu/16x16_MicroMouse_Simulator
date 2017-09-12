@@ -9,7 +9,7 @@ To view the simulation, simply run the main.cpp file. Note, currently works only
 ## Editing Code
 
 To edit algorithm, open Micromouse_Simulator/main.cpp. Add code in the spaces labeled as follows (Code is structured as if it was being run on an Arduino):
-'''C
+```C
 #include "Common.h"
 #include "MicroMouseSim.h"
 
@@ -41,10 +41,10 @@ int main()
 	}
 	return 0;
 }
-'''
+```
 
 Use the following to move the mouse or retrieve information about surroundings:
-'''C
+```C
 //Variables used to specify direction
 Direction::UP
 Direction::DOWN
@@ -56,24 +56,24 @@ world.checkWall(DIRECTION)
 world.moveMouse(DIRECTION)
 //returns true if mouse has completed maze (used to reset variables between runs)
 world.isEnd()
-'''
+```
 Note: main.cpp currently contains a sample algorithm already written.
 
 ##Editing other parts of maze
 
 To edit the maze, please edit the maze.txt file (Currently in Progress):
 The file is a 16 by 16 sequence of codes denoted by the following:
-'''C
+```C
 =	- there is an upper wall
 ||	- there is a side wall
 N	- there is an upper and a side wall
 .	- there are no walls
-'''
+```
 
 To edit the size of the maze, open Micromouse_Simulator/Common.h and alter:
-'''C
+```C
 #define ROW_NUMBER 16
 #define COLUMN_NUMBER 16
-'''
+```
 Note: the finish is always located at (COLUMN_NUMBER/2, ROW_NUMBER/2), rounded down. The grid convention is that (0,0) is located in the bottom left corner.
 
