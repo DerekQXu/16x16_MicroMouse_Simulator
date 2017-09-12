@@ -59,7 +59,7 @@ world.isEnd()
 ```
 Note: main.cpp currently contains a sample algorithm already written.
 
-##Editing other parts of maze
+## Editing other parts of maze
 
 To edit the maze, please edit the maze.txt file (Currently in Progress):
 The file is a 16 by 16 sequence of codes denoted by the following:
