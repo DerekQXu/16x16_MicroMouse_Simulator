@@ -64,10 +64,11 @@ Note: main.cpp currently contains a sample algorithm already written.
 To edit the maze, please edit the maze.txt file (Currently in Progress):
 The file is a 16 by 16 sequence of codes denoted by the following:
 ```C
-=	- there is an upper wall
-||	- there is a side wall
-N	- there is an upper and a side wall
-.	- there are no walls
+=	- there is an upper wall*
+||	- there is a right wall*
+N	- there is an upper and a right wall*
+.	- there are no walls*
+*adjacent to cell
 ```
 
 To edit the size of the maze, open Micromouse_Simulator/Common.h and alter:
