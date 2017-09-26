@@ -108,7 +108,7 @@ bool MicroMouseSim::displayMaze()
 	maze.printMaze(m_mouseX, m_mouseY);
 	std::cout << "\nCurrent Location: (" << m_mouseX << ", " << m_mouseY << ")   \n"
 		<< "Current Move Number: " << m_moves << "    " << std::endl;
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	std::this_thread::sleep_for(std::chrono::milliseconds(DELAY_TIME));
 
 	//checks if mouse is at end
 	if (m_mouseX == COLUMN_NUMBER / 2 && m_mouseY == ROW_NUMBER / 2)
