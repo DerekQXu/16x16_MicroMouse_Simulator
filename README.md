@@ -64,9 +64,9 @@ Note: main.cpp currently contains a sample algorithm already written.
 To edit the maze, please edit the maze.txt file (Currently in Progress):
 The file is a 16 by 16 sequence of codes denoted by the following:
 ```C
-=	- there is an upper wall*
-||	- there is a right wall*
-N	- there is an upper and a right wall*
+U	- there is an upper wall*
+R	- there is a right wall*
+B	- there is an upper and a right wall*
 .	- there are no walls*
 *adjacent to cell
 ```
@@ -77,4 +77,3 @@ To edit the size of the maze, open Micromouse_Simulator/Common.h and alter:
 #define COLUMN_NUMBER 16
 ```
 Note: the finish is always located at (COLUMN_NUMBER/2, ROW_NUMBER/2), rounded down. The grid convention is that (0,0) is located in the bottom left corner.
-
