@@ -69,7 +69,7 @@ R	- there is a right wall*
 B	- there is an upper and a right wall*
 .	- there are no walls*
 *adjacent to cell
-```<br />
+```  <br />
 To edit the size of the maze, open Micromouse_Simulator/Common.h and alter:
 ```C
 #define ROW_NUMBER 16
