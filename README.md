@@ -69,15 +69,13 @@ R	- there is a right wall*
 B	- there is an upper and a right wall*
 .	- there are no walls*
 *adjacent to cell
-```
-<br />
+```<br />
 To edit the size of the maze, open Micromouse_Simulator/Common.h and alter:
 ```C
 #define ROW_NUMBER 16
 #define COLUMN_NUMBER 16
 ```
-Note: the finish is always located at (COLUMN_NUMBER/2, ROW_NUMBER/2), rounded down. The grid convention is that (0,0) is located in the bottom left corner.
-<br />
+Note: the finish is always located at (COLUMN_NUMBER/2, ROW_NUMBER/2), rounded down. The grid convention is that (0,0) is located in the bottom left corner.<br />
 To edit the speed the mouse is moving, open Micromouse_Simulator/Common.h and alter:
 ```C
 #define DELAY_TIME 10
