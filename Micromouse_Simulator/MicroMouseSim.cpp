@@ -5,7 +5,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <windows.h>
 #include <string>
 #include <chrono>
 #include <thread>
@@ -99,10 +98,7 @@ bool MicroMouseSim::displayMaze()
 
 	//moves mouse
 	showConsoleCursor(false);
-	COORD coord;
-	coord.X = 0;
-	coord.Y = 0;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+	clearScreen();
 
 	//prints maze
 	maze.printMaze(m_mouseX, m_mouseY);
@@ -130,7 +126,30 @@ bool MicroMouseSim::displayMaze()
 	return false;
 }
 
-//helper function to print on terminal
+bool MicroMouseSim::isEnd()
+{
+	if (m_mouseX == COLUMN_NUMBER / 2 && m_mouseY == ROW_NUMBER / 2)
+		return true;
+	return false;
+}
+
+////////////////////////////////////////////////////////
+//	Clear Screen implementation below
+////////////////////////////////////////////////////////
+
+#ifdef _MSC_VER  //  Microsoft Visual C++
+
+#pragma warning(disable : 4005)
+#include <windows.h>
+
+void MicroMouseSim::clearScreen()
+{
+	COORD coord;
+	coord.X = 0;
+	coord.Y = 0;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
 void MicroMouseSim::showConsoleCursor(bool showFlag)
 {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -141,9 +160,31 @@ void MicroMouseSim::showConsoleCursor(bool showFlag)
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-bool MicroMouseSim::isEnd()
+#else  // not Microsoft Visual C++, so assume UNIX interface
+
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <curses.h>
+
+void MicroMouseSim::clearScreen()  // will just write a newline in an Xcode output window
 {
-	if (m_mouseX == COLUMN_NUMBER / 2 && m_mouseY == ROW_NUMBER / 2)
-		return true;
-	return false;
+	static const char* term = getenv("TERM");
+	if (term == nullptr || strcmp(term, "dumb") == 0)
+		cout << endl;
+	else
+	{
+		static const char* ESC_SEQ = "\x1B[";  // ANSI Terminal esc seq:  ESC [
+		cout << ESC_SEQ << "2J" << ESC_SEQ << "H" << flush;
+	}
 }
+
+void MicroMouseSim::showConsoleCursor(bool showFlag)
+{
+	if (showFlag)
+		curs_set(1);
+	else
+		curs_set(0);
+}
+
+#endif
