@@ -4,7 +4,11 @@ A micro-mouse simulation program. User may run their own algorithms by altering 
 
 ## Usage
 
-To view the simulation, simply run the main.cpp file. Note, currently works only on Windows platform.
+To view the simulation, simply run the main.cpp file (note: now works with Windows and Linux platforms).<br />
+
+For Linux:<br />
+requires curses.h<br />
+compile with C++11
 
 ## Editing Code
 
