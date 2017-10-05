@@ -4,9 +4,9 @@
 //add libraries starting here
 #include <iostream>
 #include <queue>
-#include <cstdlib> 
+#include <cstdlib>
 #include <cstdint>
-#include <ctime> 
+#include <ctime>
 //and ending here
 
 using namespace std;
@@ -31,7 +31,7 @@ uint16_t currentFloodFillValue;
 
 mapCell* tempCell;
 int tempX;
-int tempY;	
+int tempY;
 
 queue <mapCell*> breadthFirstSearchQ;
 queue <int> tempXQ;
@@ -164,6 +164,7 @@ void updateLocation(Direction ID)
 
 int main()
 {
+    cin.ignore(10000, '\n'); //removes new line if prgrm ran from terminal
 	//add setup() code here
 	currentDirection = Direction::UP;
 	currentX = 0;
@@ -210,7 +211,7 @@ int main()
 		}
 		currentDirection = decideMove();
 		if( world.moveMouse(currentDirection) )
-			updateLocation(currentDirection); 
+			updateLocation(currentDirection);
 		if (world.isEnd()) {
 			currentX = 0;
 			currentY = 0;

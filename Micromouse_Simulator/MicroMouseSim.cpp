@@ -113,7 +113,7 @@ bool MicroMouseSim::displayMaze()
 		showConsoleCursor(true);
 		std::cout << "\n----------------------------\nTotal Move Number: " << m_moves << "moves" << "    "
 			<< "\nNumber of Attempt: " << m_trainCount + 1 << " out of " << m_maxTrainCount << std::endl;
-		system("pause");
+        std::cin.ignore( std::numeric_limits< std::streamsize >::max( ), '\n' );
 
 		//resets constants
 		m_moves = 0;
@@ -171,11 +171,11 @@ void MicroMouseSim::clearScreen()  // will just write a newline in an Xcode outp
 {
 	static const char* term = getenv("TERM");
 	if (term == nullptr || strcmp(term, "dumb") == 0)
-		cout << endl;
+		std::cout << std::endl;
 	else
 	{
 		static const char* ESC_SEQ = "\x1B[";  // ANSI Terminal esc seq:  ESC [
-		cout << ESC_SEQ << "2J" << ESC_SEQ << "H" << flush;
+		std::cout << ESC_SEQ << "2J" << ESC_SEQ << "H" << std::flush;
 	}
 }
 
