@@ -4,11 +4,19 @@ A micro-mouse simulation program. User may run their own algorithms by altering 
 
 ## Usage
 
-To view the simulation, simply run the main.cpp file (note: now works with Windows and Linux platforms).<br />
+### Windows:
+To view the simulation, download the executable and maze.txt files. Click the executable with the maze.txt file in the same directory.<br />
+To test own algorithm, recompile and run the main.cpp.
 
-For Linux:<br />
-requires curses.h<br />
-compile with C++11
+### Linux/UNIX:
+To view the simulation, download the a.out and maze.txt files. Run a.out with maze.txt in the same directory. <br />
+To test own algorithm, recompile and run the main.cpp file. <br />
+#### Dependencies:
+* curses
+#### Compilation command:
+```C
+g++ -std=c++11 main.cpp Cell.cpp Maze.cpp Wall.cpp MicroMouseSim.cpp *.h -lncurses
+```
 
 ## Editing Code
 
