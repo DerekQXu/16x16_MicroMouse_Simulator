@@ -6,10 +6,10 @@
 
 enum Direction
 {
-	UP = 1,
+	UP = 0,
+	LEFT = 1,
 	DOWN = 2,
-	LEFT = 3,
-	RIGHT = 4
+	RIGHT = 3
 };
 
 #endif //COMMON_H
