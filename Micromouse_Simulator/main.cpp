@@ -189,21 +189,25 @@ int main()
 	while (!world.displayMaze())
 	{
 		//add loop() code here
+		if ((currentDirection + 2) % 4 != Direction::UP)
 		if (world.checkWall(Direction::UP)) {
 			if (currentY != ROW_NUMBER - 1)
 				map[currentX][currentY + 1].downWall = true;
 			map[currentX][currentY].upWall = true;
 		}
+		if ((currentDirection + 2) % 4 != Direction::DOWN)
 		if (world.checkWall(Direction::DOWN)) {
 			if (currentY != 0)
 				map[currentX][currentY - 1].upWall = true;
 			map[currentX][currentY].downWall = true;
 		}
+		if ((currentDirection + 2) % 4 != Direction::RIGHT)
 		if (world.checkWall(Direction::RIGHT)) {
 			if (currentX != COLUMN_NUMBER - 1)
 				map[currentX + 1][currentY].leftWall = true;
 			map[currentX][currentY].rightWall = true;
 		}
+		if ((currentDirection + 2) % 4 != Direction::LEFT)
 		if (world.checkWall(Direction::LEFT)) {
 			if (currentX != 0)
 				map[currentX - 1][currentY].rightWall = true;
